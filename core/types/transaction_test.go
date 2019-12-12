@@ -22,6 +22,7 @@ import (
 	"encoding/json"
 	"math/big"
 	"testing"
+	"github.com/ethereum/go-ethereum/common/hexutil"
 
 	"github.com/Noaraud/noa-geth/common"
 	"github.com/Noaraud/noa-geth/crypto"
@@ -90,7 +91,25 @@ func TestTxDecode(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-
+	t.Log(tx)
+}
+func TestTxDecodeBytes(t *testing.T) {
+	var tx Transaction
+	//Pubkey領域なしのTx
+	//data := common.Hex2Bytes("f8498080808080011ca09b16de9d5bdee2cf56c28d16275a4da68cd30273e2525f3959f5d62557489921a0372ebd8fb3345f7db7b5a86d42e24d36e983e259b0664ceb8c227ec9af572f3d")
+	
+	//Pubkey領域ありのTx
+	//data := common.Hex2Bytes("f88a8080834c4b4094b081a3a5b838ac8741426e51f4a8339451cec3ae8829a2241af62c000080a102dff1d77f2a671c5f36183726db2341be58feae1da2deced843240f7b502ba6592ca0aacaace16017dfc44427266dec0bb71d73118d7f31e24ab70b6a88a3d6c63538a03bebe3ecaa0dec230133331e66d421ffe06c239276d0490888da9496e02284f0")
+	
+	//hexutilのTx
+	data, err := hexutil.Decode("0xf88a8080834c4b4094b081a3a5b838ac8741426e51f4a8339451cec3ae8829a2241af62c000080a102dff1d77f2a671c5f36183726db2341be58feae1da2deced843240f7b502ba6592ca0aacaace16017dfc44427266dec0bb71d73118d7f31e24ab70b6a88a3d6c63538a03bebe3ecaa0dec230133331e66d421ffe06c239276d0490888da9496e02284f0")
+	if err != nil {
+		t.Fatal(err)
+	}
+	t.Log(tx)
+	if err := rlp.DecodeBytes(data, &tx); err != nil {
+		t.Fatal(err)
+	}
 	t.Log(tx)
 }
 
