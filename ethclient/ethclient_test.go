@@ -25,16 +25,16 @@ import (
 	"testing"
 	"time"
 
-	"github.com/ethereum/go-ethereum"
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/consensus/ethash"
-	"github.com/ethereum/go-ethereum/core"
-	"github.com/ethereum/go-ethereum/core/rawdb"
-	"github.com/ethereum/go-ethereum/core/types"
-	"github.com/ethereum/go-ethereum/crypto"
-	"github.com/ethereum/go-ethereum/eth"
-	"github.com/ethereum/go-ethereum/node"
-	"github.com/ethereum/go-ethereum/params"
+	"github.com/Noaraud/noa-geth"
+	"github.com/Noaraud/noa-geth/common"
+	"github.com/Noaraud/noa-geth/consensus/ethash"
+	"github.com/Noaraud/noa-geth/core"
+	"github.com/Noaraud/noa-geth/core/rawdb"
+	"github.com/Noaraud/noa-geth/core/types"
+	"github.com/Noaraud/noa-geth/crypto"
+	"github.com/Noaraud/noa-geth/eth"
+	"github.com/Noaraud/noa-geth/node"
+	"github.com/Noaraud/noa-geth/params"
 )
 
 // Verify that Client implements the ethereum interfaces.

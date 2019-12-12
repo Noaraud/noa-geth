@@ -20,8 +20,8 @@ import (
 	"bytes"
 	"fmt"
 
-	"github.com/ethereum/go-ethereum/core/types"
-	"github.com/ethereum/go-ethereum/rlp"
+	"github.com/Noaraud/noa-geth/core/types"
+	"github.com/Noaraud/noa-geth/rlp"
 )
 
 func decodeEncode(input []byte, val interface{}, i int) {

@@ -22,9 +22,9 @@ import (
 	"math/big"
 	"strings"
 
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/common/hexutil"
-	"github.com/ethereum/go-ethereum/core/types"
+	"github.com/Noaraud/noa-geth/common"
+	"github.com/Noaraud/noa-geth/common/hexutil"
+	"github.com/Noaraud/noa-geth/core/types"
 )
 
 type ValidationInfo struct {

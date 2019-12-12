@@ -21,17 +21,17 @@ import (
 	"math/big"
 	"sync"
 
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/core"
-	"github.com/ethereum/go-ethereum/core/rawdb"
-	"github.com/ethereum/go-ethereum/core/types"
-	"github.com/ethereum/go-ethereum/eth"
-	"github.com/ethereum/go-ethereum/ethdb"
-	"github.com/ethereum/go-ethereum/light"
-	"github.com/ethereum/go-ethereum/p2p"
-	"github.com/ethereum/go-ethereum/p2p/discv5"
-	"github.com/ethereum/go-ethereum/p2p/enode"
-	"github.com/ethereum/go-ethereum/params"
+	"github.com/Noaraud/noa-geth/common"
+	"github.com/Noaraud/noa-geth/core"
+	"github.com/Noaraud/noa-geth/core/rawdb"
+	"github.com/Noaraud/noa-geth/core/types"
+	"github.com/Noaraud/noa-geth/eth"
+	"github.com/Noaraud/noa-geth/ethdb"
+	"github.com/Noaraud/noa-geth/light"
+	"github.com/Noaraud/noa-geth/p2p"
+	"github.com/Noaraud/noa-geth/p2p/discv5"
+	"github.com/Noaraud/noa-geth/p2p/enode"
+	"github.com/Noaraud/noa-geth/params"
 )
 
 func errResp(code errCode, format string, v ...interface{}) error {

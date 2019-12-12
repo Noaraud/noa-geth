@@ -17,9 +17,9 @@
 package runtime
 
 import (
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/core"
-	"github.com/ethereum/go-ethereum/core/vm"
+	"github.com/Noaraud/noa-geth/common"
+	"github.com/Noaraud/noa-geth/core"
+	"github.com/Noaraud/noa-geth/core/vm"
 )
 
 func NewEnv(cfg *Config) *vm.EVM {

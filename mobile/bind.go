@@ -23,12 +23,12 @@ import (
 	"math/big"
 	"strings"
 
-	"github.com/ethereum/go-ethereum/accounts/abi"
-	"github.com/ethereum/go-ethereum/accounts/abi/bind"
-	"github.com/ethereum/go-ethereum/accounts/keystore"
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/core/types"
-	"github.com/ethereum/go-ethereum/crypto"
+	"github.com/Noaraud/noa-geth/accounts/abi"
+	"github.com/Noaraud/noa-geth/accounts/abi/bind"
+	"github.com/Noaraud/noa-geth/accounts/keystore"
+	"github.com/Noaraud/noa-geth/common"
+	"github.com/Noaraud/noa-geth/core/types"
+	"github.com/Noaraud/noa-geth/crypto"
 )
 
 // Signer is an interface defining the callback when a contract requires a

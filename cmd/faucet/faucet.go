@@ -41,23 +41,23 @@ import (
 	"sync"
 	"time"
 
-	"github.com/ethereum/go-ethereum/accounts"
-	"github.com/ethereum/go-ethereum/accounts/keystore"
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/core"
-	"github.com/ethereum/go-ethereum/core/types"
-	"github.com/ethereum/go-ethereum/eth"
-	"github.com/ethereum/go-ethereum/eth/downloader"
-	"github.com/ethereum/go-ethereum/ethclient"
-	"github.com/ethereum/go-ethereum/ethstats"
-	"github.com/ethereum/go-ethereum/les"
-	"github.com/ethereum/go-ethereum/log"
-	"github.com/ethereum/go-ethereum/node"
-	"github.com/ethereum/go-ethereum/p2p"
-	"github.com/ethereum/go-ethereum/p2p/discv5"
-	"github.com/ethereum/go-ethereum/p2p/enode"
-	"github.com/ethereum/go-ethereum/p2p/nat"
-	"github.com/ethereum/go-ethereum/params"
+	"github.com/Noaraud/noa-geth/accounts"
+	"github.com/Noaraud/noa-geth/accounts/keystore"
+	"github.com/Noaraud/noa-geth/common"
+	"github.com/Noaraud/noa-geth/core"
+	"github.com/Noaraud/noa-geth/core/types"
+	"github.com/Noaraud/noa-geth/eth"
+	"github.com/Noaraud/noa-geth/eth/downloader"
+	"github.com/Noaraud/noa-geth/ethclient"
+	"github.com/Noaraud/noa-geth/ethstats"
+	"github.com/Noaraud/noa-geth/les"
+	"github.com/Noaraud/noa-geth/log"
+	"github.com/Noaraud/noa-geth/node"
+	"github.com/Noaraud/noa-geth/p2p"
+	"github.com/Noaraud/noa-geth/p2p/discv5"
+	"github.com/Noaraud/noa-geth/p2p/enode"
+	"github.com/Noaraud/noa-geth/p2p/nat"
+	"github.com/Noaraud/noa-geth/params"
 	"github.com/gorilla/websocket"
 )
 
@@ -467,7 +467,7 @@ func (f *faucet) apiHandler(w http.ResponseWriter, r *http.Request) {
 			username, avatar, address, err = authNoAuth(msg.URL)
 		default:
 			//lint:ignore ST1005 This error is to be displayed in the browser
-			err = errors.New("Something funky happened, please open an issue at https://github.com/ethereum/go-ethereum/issues")
+			err = errors.New("Something funky happened, please open an issue at https://github.com/Noaraud/noa-geth/issues")
 		}
 		if err != nil {
 			if err = sendError(conn, err); err != nil {

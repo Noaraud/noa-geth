@@ -20,12 +20,12 @@ import (
 	"fmt"
 	"io/ioutil"
 
-	"github.com/ethereum/go-ethereum/accounts"
-	"github.com/ethereum/go-ethereum/accounts/keystore"
-	"github.com/ethereum/go-ethereum/cmd/utils"
-	"github.com/ethereum/go-ethereum/console"
-	"github.com/ethereum/go-ethereum/crypto"
-	"github.com/ethereum/go-ethereum/log"
+	"github.com/Noaraud/noa-geth/accounts"
+	"github.com/Noaraud/noa-geth/accounts/keystore"
+	"github.com/Noaraud/noa-geth/cmd/utils"
+	"github.com/Noaraud/noa-geth/console"
+	"github.com/Noaraud/noa-geth/crypto"
+	"github.com/Noaraud/noa-geth/log"
 	"gopkg.in/urfave/cli.v1"
 )
 

@@ -26,9 +26,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/ethereum/go-ethereum/accounts"
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/event"
+	"github.com/Noaraud/noa-geth/accounts"
+	"github.com/Noaraud/noa-geth/common"
+	"github.com/Noaraud/noa-geth/event"
 )
 
 var testSigData = make([]byte, 32)

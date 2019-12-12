@@ -19,12 +19,12 @@ package rawdb
 import (
 	"math/big"
 
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/core/types"
-	"github.com/ethereum/go-ethereum/ethdb"
-	"github.com/ethereum/go-ethereum/log"
-	"github.com/ethereum/go-ethereum/params"
-	"github.com/ethereum/go-ethereum/rlp"
+	"github.com/Noaraud/noa-geth/common"
+	"github.com/Noaraud/noa-geth/core/types"
+	"github.com/Noaraud/noa-geth/ethdb"
+	"github.com/Noaraud/noa-geth/log"
+	"github.com/Noaraud/noa-geth/params"
+	"github.com/Noaraud/noa-geth/rlp"
 )
 
 // ReadTxLookupEntry retrieves the positional metadata associated with a transaction

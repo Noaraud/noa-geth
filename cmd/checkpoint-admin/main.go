@@ -22,9 +22,9 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/ethereum/go-ethereum/cmd/utils"
-	"github.com/ethereum/go-ethereum/common/fdlimit"
-	"github.com/ethereum/go-ethereum/log"
+	"github.com/Noaraud/noa-geth/cmd/utils"
+	"github.com/Noaraud/noa-geth/common/fdlimit"
+	"github.com/Noaraud/noa-geth/log"
 	"gopkg.in/urfave/cli.v1"
 )
 

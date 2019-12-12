@@ -24,9 +24,9 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/ethereum/go-ethereum/event"
-	"github.com/ethereum/go-ethereum/log"
-	"github.com/ethereum/go-ethereum/metrics"
+	"github.com/Noaraud/noa-geth/event"
+	"github.com/Noaraud/noa-geth/log"
+	"github.com/Noaraud/noa-geth/metrics"
 )
 
 const (

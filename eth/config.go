@@ -24,13 +24,13 @@ import (
 	"runtime"
 	"time"
 
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/consensus/ethash"
-	"github.com/ethereum/go-ethereum/core"
-	"github.com/ethereum/go-ethereum/eth/downloader"
-	"github.com/ethereum/go-ethereum/eth/gasprice"
-	"github.com/ethereum/go-ethereum/miner"
-	"github.com/ethereum/go-ethereum/params"
+	"github.com/Noaraud/noa-geth/common"
+	"github.com/Noaraud/noa-geth/consensus/ethash"
+	"github.com/Noaraud/noa-geth/core"
+	"github.com/Noaraud/noa-geth/eth/downloader"
+	"github.com/Noaraud/noa-geth/eth/gasprice"
+	"github.com/Noaraud/noa-geth/miner"
+	"github.com/Noaraud/noa-geth/params"
 )
 
 // DefaultConfig contains default settings for use on the Ethereum main net.

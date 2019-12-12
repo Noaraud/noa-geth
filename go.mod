@@ -1,4 +1,4 @@
-module github.com/ethereum/go-ethereum
+module github.com/Noaraud/noa-geth
 
 go 1.13
 
