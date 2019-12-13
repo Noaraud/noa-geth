@@ -21,6 +21,7 @@ import (
 	"errors"
 	"fmt"
 	"math/big"
+	//"bytes"
 
 	"github.com/Noaraud/noa-geth/common"
 	"github.com/Noaraud/noa-geth/crypto"
@@ -131,9 +132,17 @@ func (s EIP155Signer) Sender(tx *Transaction) (common.Address, error) {
 	if tx.ChainId().Cmp(s.chainId) != 0 {
 		return common.Address{}, ErrInvalidChainId
 	}
-	V := new(big.Int).Sub(tx.data.V, s.chainIdMul)
-	V.Sub(V, big8)
-	return recoverPlain(s.Hash(tx), tx.data.R, tx.data.S, V, true)
+
+
+	if string(tx.data.Pubkey) == "0x" {
+		V := new(big.Int).Sub(tx.data.V, s.chainIdMul)
+		V.Sub(V, big8)
+		return recoverPlain(s.Hash(tx), tx.data.R, tx.data.S, V, true)
+		//return common.Address{}, ErrInvalidChainId
+	} else {
+		return recoverPlainSchnorr(s.Hash(tx), tx.data.R, tx.data.S, tx.data.Pubkey)
+	}
+
 }
 
 // SignatureValues returns signature values. This signature
@@ -258,3 +267,21 @@ func deriveChainId(v *big.Int) *big.Int {
 	v = new(big.Int).Sub(v, big.NewInt(35))
 	return v.Div(v, big.NewInt(2))
 }
+
+func recoverPlainSchnorr(sighash common.Hash, R, S *big.Int, Pubkey []byte) (common.Address, error) {
+	//署名の結合
+	r, s := R.Bytes(), S.Bytes()
+	sig := [64]byte{}
+	copy(sig[:32], r)
+	copy(sig[32:], s)
+
+	pubKey, err := Verify(Pubkey, sighash, sig)
+	if pubKey == nil {
+		return common.Address{}, err
+	}
+	var addr common.Address
+	copy(addr[:], crypto.Keccak256(pubKey[:])[12:])
+	return addr, nil
+}
+
+

@@ -70,19 +70,44 @@ func TestUnmarshal(t *testing.T) {
 	}
 }
 
+
+
+
+
 func TestHoge(t *testing.T) {
+	var (
+		message   [32]byte
+		signature [64]byte
+	)
+	  
 	pk, _ := hex.DecodeString("02DFF1D77F2A671C5F36183726DB2341BE58FEAE1DA2DECED843240F7B502BA659")
-	pk2, _ := hex.DecodeString("02DFF1D77F2A671C5F36183726DB2341BE58FEAE1DA2DECED843240F7B502BA888")
+	
+	//msg, _ := hex.DecodeString("4886c43cb65240e968051b4b525ee06ccbea41a7c7304fcef9326da36e78564f")
+	msg, _ := hex.DecodeString("f9145d68756d42129eb811984bcca5bcc058c3805523b55eecbc0e12a7a5ef7a")
+	copy(message[:], msg)
+	sig, _ := hex.DecodeString("aacaace16017dfc44427266dec0bb71d73118d7f31e24ab70b6a88a3d6c635383bebe3ecaa0dec230133331e66d421ffe06c239276d0490888da9496e02284f0")
+	copy(signature[:], sig)
+	  
+	result, err := Verify(pk, message, signature)
+	if result == nil {
+		t.Fatal(err)
+	}
+	t.Log(result)
 
-	t.Log(pk)
-	t.Log(pk2)
 
-	var Pubkey [64]byte
+	//t.Log(len(result))
+	//t.Log(hex.EncodeToString(result[:32]))
+	//pubstring := "DFF1D77F2A671C5F36183726DB2341BE58FEAE1DA2DECED843240F7B502BA659"
+	//t.Log(pubstring)
+	//if hex.EncodeToString(result[:32]) != pubstring {
+	//	t.Log("invalid")
+	//}
 
-	copy(Pubkey[:32], pk)
-	copy(Pubkey[32:], pk2)
-	var PubkeySlice []byte
 
-	PubkeySlice = Pubkey[:]
-	t.Log(PubkeySlice)
+
+	var addr common.Address
+	copy(addr[:], crypto.Keccak256(result[:])[12:])
+	//t.Log(addr)
+	//t.Log(hex.EncodeToString(crypto.Keccak256(result[:])[12:]))
+	
 }

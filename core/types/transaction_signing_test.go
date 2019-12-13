@@ -19,7 +19,7 @@ package types
 import (
 	"math/big"
 	"testing"
-
+	"encoding/hex"
 	"github.com/Noaraud/noa-geth/common"
 	"github.com/Noaraud/noa-geth/crypto"
 	"github.com/Noaraud/noa-geth/rlp"
@@ -135,4 +135,33 @@ func TestChainId(t *testing.T) {
 	if err != nil {
 		t.Error("expected no error")
 	}
+}
+
+
+func TestEIP155Sender(t *testing.T) {
+	var tx *Transaction
+
+	hexTx := "f88a8080834c4b4094b081a3a5b838ac8741426e51f4a8339451cec3ae8829a2241af62c000080a102dff1d77f2a671c5f36183726db2341be58feae1da2deced843240f7b502ba6591ba0aacaace16017dfc44427266dec0bb71d73118d7f31e24ab70b6a88a3d6c63538a03bebe3ecaa0dec230133331e66d421ffe06c239276d0490888da9496e02284f0"
+	signer := NewEIP155Signer(big.NewInt(1))
+	
+	err := rlp.DecodeBytes(common.Hex2Bytes(hexTx), &tx)
+		if err != nil {
+			t.Log(err)
+		}
+	t.Log(tx.data.Pubkey)
+	from, err := Sender(signer, tx)
+	if err != nil {
+		t.Log(err)
+	}
+	t.Log(from)
+	t.Log(from.Hex())
+
+	t.Log("--------------以下実験----------------")
+	r, s := tx.data.R.Bytes(), tx.data.S.Bytes()
+	sig := [64]byte{}
+	copy(sig[:32], r)
+	copy(sig[32:], s)
+	t.Log("Sig :")
+	t.Log(hex.EncodeToString(sig[:]))
+	t.Log((signer.Hash(tx).Hex()))
 }
