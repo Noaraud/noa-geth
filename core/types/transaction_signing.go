@@ -21,6 +21,7 @@ import (
 	"errors"
 	"fmt"
 	"math/big"
+	//"bytes"
 
 	"github.com/Noaraud/noa-geth/common"
 	"github.com/Noaraud/noa-geth/crypto"
@@ -131,9 +132,18 @@ func (s EIP155Signer) Sender(tx *Transaction) (common.Address, error) {
 	if tx.ChainId().Cmp(s.chainId) != 0 {
 		return common.Address{}, ErrInvalidChainId
 	}
-	V := new(big.Int).Sub(tx.data.V, s.chainIdMul)
-	V.Sub(V, big8)
-	return recoverPlain(s.Hash(tx), tx.data.R, tx.data.S, V, true)
+
+
+	if len(tx.data.Pubkey) > 0 {
+		return recoverPlainSchnorr(s.Hash(tx), tx.data.R, tx.data.S, tx.data.Pubkey)
+		//return common.Address{}, ErrInvalidChainId
+	} else {
+		V := new(big.Int).Sub(tx.data.V, s.chainIdMul)
+		V.Sub(V, big8)
+		return recoverPlain(s.Hash(tx), tx.data.R, tx.data.S, V, true)
+		//return common.Address{}, ErrInvalidChainId
+	}
+
 }
 
 // SignatureValues returns signature values. This signature
@@ -180,7 +190,15 @@ func (hs HomesteadSigner) SignatureValues(tx *Transaction, sig []byte) (r, s, v 
 }
 
 func (hs HomesteadSigner) Sender(tx *Transaction) (common.Address, error) {
-	return recoverPlain(hs.Hash(tx), tx.data.R, tx.data.S, tx.data.V, true)
+
+	if len(tx.data.Pubkey) > 0 {
+		return recoverPlainSchnorr(hs.Hash(tx), tx.data.R, tx.data.S, tx.data.Pubkey)
+		//return common.Address{}, ErrInvalidChainId
+	} else {
+		return recoverPlain(hs.Hash(tx), tx.data.R, tx.data.S, tx.data.V, true)
+		//return common.Address{}, ErrInvalidChainId
+	}
+	//return recoverPlain(hs.Hash(tx), tx.data.R, tx.data.S, tx.data.V, true)
 }
 
 type FrontierSigner struct{}
@@ -216,7 +234,15 @@ func (fs FrontierSigner) Hash(tx *Transaction) common.Hash {
 }
 
 func (fs FrontierSigner) Sender(tx *Transaction) (common.Address, error) {
-	return recoverPlain(fs.Hash(tx), tx.data.R, tx.data.S, tx.data.V, false)
+
+	if len(tx.data.Pubkey) > 0 {
+		return recoverPlainSchnorr(fs.Hash(tx), tx.data.R, tx.data.S, tx.data.Pubkey)
+		//return common.Address{}, ErrInvalidChainId
+	} else {
+		return recoverPlain(fs.Hash(tx), tx.data.R, tx.data.S, tx.data.V, true)
+		//return common.Address{}, ErrInvalidChainId
+	}
+	//return recoverPlain(fs.Hash(tx), tx.data.R, tx.data.S, tx.data.V, false)
 }
 
 func recoverPlain(sighash common.Hash, R, S, Vb *big.Int, homestead bool) (common.Address, error) {
@@ -258,3 +284,21 @@ func deriveChainId(v *big.Int) *big.Int {
 	v = new(big.Int).Sub(v, big.NewInt(35))
 	return v.Div(v, big.NewInt(2))
 }
+
+func recoverPlainSchnorr(sighash common.Hash, R, S *big.Int, Pubkey []byte) (common.Address, error) {
+	//署名の結合
+	r, s := R.Bytes(), S.Bytes()
+	sig := [64]byte{}
+	copy(sig[:32], r)
+	copy(sig[32:], s)
+
+	pubKey, err := Verify(Pubkey, sighash, sig)
+	if pubKey == nil {
+		return common.Address{}, err
+	}
+	var addr common.Address
+	copy(addr[:], crypto.Keccak256(pubKey[:])[12:])
+	return addr, nil
+}
+
+

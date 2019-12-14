@@ -19,7 +19,8 @@ package types
 import (
 	"math/big"
 	"testing"
-
+	//"encoding/hex"
+	"reflect"
 	"github.com/Noaraud/noa-geth/common"
 	"github.com/Noaraud/noa-geth/crypto"
 	"github.com/Noaraud/noa-geth/rlp"
@@ -135,4 +136,56 @@ func TestChainId(t *testing.T) {
 	if err != nil {
 		t.Error("expected no error")
 	}
+}
+
+
+func TestEIP155Sender(t *testing.T) {
+	var tx *Transaction
+
+	//schnorrTx
+	//hexTx := "f88a8080834c4b4094b081a3a5b838ac8741426e51f4a8339451cec3ae8829a2241af62c000080a1023a968c4c1a6127102fe60e2706476b23d8f6c3e147937a7252a5c35f61f0938e1ba001f685b0782021a25403b867fdac867da1e424cfb3ac19ebbd08a0fb134cbc42a0896aabcc00ca2b25bc762db03f7cead23e8b5f590a8e87690f0b6ec1552554ef"
+	
+	//normalTx
+	hexTx := "f8698080834c4b4094e99259149c60f7f5fdb5e2b236303dfce23867a08829a2241af62c0000808026a0a0dd5b8c525ab2d66ca7e5723445f749062745a80c697544ecffe3059d381b8fa050921c7cf229e10f7956de0466b64fb300aa84f2fece0ab9fc7a3cc0ba284cc9"
+
+	signer := NewEIP155Signer(big.NewInt(1))
+	//signer := FrontierSigner{}
+	//signer := HomesteadSigner{}
+	
+	err := rlp.DecodeBytes(common.Hex2Bytes(hexTx), &tx)
+		if err != nil {
+			t.Log(err)
+		}
+
+		
+	t.Log(tx.data.Pubkey[:])
+	from, err := Sender(signer, tx)
+	if err != nil { 
+		t.Log(err)
+	}
+	t.Log(reflect.TypeOf(tx.data.Pubkey))
+	t.Log(from)
+	t.Log(from.Hex())
+
+	
+	t.Log(signer.Hash(tx).Hex())
+
+
+	//r, s := tx.data.R.Bytes(), tx.data.S.Bytes()
+
+	//sig := [64]byte{}
+	//copy(sig[:32], r)
+	//copy(sig[32:], s)
+
+	//t.Log(hex.EncodeToString(sig[:]))
+	
+
+	
+
+	
+	
+	
+
+	
+
 }
