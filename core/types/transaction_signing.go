@@ -134,13 +134,13 @@ func (s EIP155Signer) Sender(tx *Transaction) (common.Address, error) {
 	}
 
 
-	if string(tx.data.Pubkey) == "0x" {
+	if len(tx.data.Pubkey) > 0 {
+		return recoverPlainSchnorr(s.Hash(tx), tx.data.R, tx.data.S, tx.data.Pubkey)
+		//return common.Address{}, ErrInvalidChainId
+	} else {
 		V := new(big.Int).Sub(tx.data.V, s.chainIdMul)
 		V.Sub(V, big8)
-		//return recoverPlain(s.Hash(tx), tx.data.R, tx.data.S, V, true)
-		return common.Address{}, ErrInvalidChainId
-	} else {
-		return recoverPlainSchnorr(s.Hash(tx), tx.data.R, tx.data.S, tx.data.Pubkey)
+		return recoverPlain(s.Hash(tx), tx.data.R, tx.data.S, V, true)
 		//return common.Address{}, ErrInvalidChainId
 	}
 
@@ -191,12 +191,11 @@ func (hs HomesteadSigner) SignatureValues(tx *Transaction, sig []byte) (r, s, v 
 
 func (hs HomesteadSigner) Sender(tx *Transaction) (common.Address, error) {
 
-	if string(tx.data.Pubkey) == "0x" {
-		
-		return recoverPlain(hs.Hash(tx), tx.data.R, tx.data.S, tx.data.V, true)
+	if len(tx.data.Pubkey) > 0 {
+		return recoverPlainSchnorr(hs.Hash(tx), tx.data.R, tx.data.S, tx.data.Pubkey)
 		//return common.Address{}, ErrInvalidChainId
 	} else {
-		return recoverPlainSchnorr(hs.Hash(tx), tx.data.R, tx.data.S, tx.data.Pubkey)
+		return recoverPlain(hs.Hash(tx), tx.data.R, tx.data.S, tx.data.V, true)
 		//return common.Address{}, ErrInvalidChainId
 	}
 	//return recoverPlain(hs.Hash(tx), tx.data.R, tx.data.S, tx.data.V, true)
@@ -236,12 +235,11 @@ func (fs FrontierSigner) Hash(tx *Transaction) common.Hash {
 
 func (fs FrontierSigner) Sender(tx *Transaction) (common.Address, error) {
 
-	if string(tx.data.Pubkey) == "0x" {
-		
-		//return recoverPlain(fs.Hash(tx), tx.data.R, tx.data.S, V, true)
-		return common.Address{}, ErrInvalidChainId
-	} else {
+	if len(tx.data.Pubkey) > 0 {
 		return recoverPlainSchnorr(fs.Hash(tx), tx.data.R, tx.data.S, tx.data.Pubkey)
+		//return common.Address{}, ErrInvalidChainId
+	} else {
+		return recoverPlain(fs.Hash(tx), tx.data.R, tx.data.S, tx.data.V, true)
 		//return common.Address{}, ErrInvalidChainId
 	}
 	//return recoverPlain(fs.Hash(tx), tx.data.R, tx.data.S, tx.data.V, false)
