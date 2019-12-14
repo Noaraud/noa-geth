@@ -80,12 +80,13 @@ func TestHoge(t *testing.T) {
 		signature [64]byte
 	)
 	  
-	pk, _ := hex.DecodeString("02DFF1D77F2A671C5F36183726DB2341BE58FEAE1DA2DECED843240F7B502BA659")
+	pk, _ := hex.DecodeString("023a968c4c1a6127102fe60e2706476b23d8f6c3e147937a7252a5c35f61f0938e")
 	
 	//msg, _ := hex.DecodeString("4886c43cb65240e968051b4b525ee06ccbea41a7c7304fcef9326da36e78564f")
-	msg, _ := hex.DecodeString("f9145d68756d42129eb811984bcca5bcc058c3805523b55eecbc0e12a7a5ef7a")
+	msg, _ := hex.DecodeString("db7e80e96b8bf43e438ad3c0845658909ca84fe60c06bb3704c70e8cf6a1706c")
 	copy(message[:], msg)
-	sig, _ := hex.DecodeString("aacaace16017dfc44427266dec0bb71d73118d7f31e24ab70b6a88a3d6c635383bebe3ecaa0dec230133331e66d421ffe06c239276d0490888da9496e02284f0")
+	//sig, _ := hex.DecodeString("aacaace16017dfc44427266dec0bb71d73118d7f31e24ab70b6a88a3d6c635383bebe3ecaa0dec230133331e66d421ffe06c239276d0490888da9496e02284f0")
+	sig, _ := hex.DecodeString("01f685b0782021a25403b867fdac867da1e424cfb3ac19ebbd08a0fb134cbc42896aabcc00ca2b25bc762db03f7cead23e8b5f590a8e87690f0b6ec1552554ef")
 	copy(signature[:], sig)
 	  
 	result, err := Verify(pk, message, signature)
@@ -108,6 +109,6 @@ func TestHoge(t *testing.T) {
 	var addr common.Address
 	copy(addr[:], crypto.Keccak256(result[:])[12:])
 	//t.Log(addr)
-	//t.Log(hex.EncodeToString(crypto.Keccak256(result[:])[12:]))
+	t.Log(hex.EncodeToString(crypto.Keccak256(result[:])[12:]))
 	
 }

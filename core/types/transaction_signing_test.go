@@ -141,27 +141,44 @@ func TestChainId(t *testing.T) {
 func TestEIP155Sender(t *testing.T) {
 	var tx *Transaction
 
-	hexTx := "f88a8080834c4b4094b081a3a5b838ac8741426e51f4a8339451cec3ae8829a2241af62c000080a102dff1d77f2a671c5f36183726db2341be58feae1da2deced843240f7b502ba6591ba0aacaace16017dfc44427266dec0bb71d73118d7f31e24ab70b6a88a3d6c63538a03bebe3ecaa0dec230133331e66d421ffe06c239276d0490888da9496e02284f0"
-	signer := NewEIP155Signer(big.NewInt(1))
+	hexTx := "f88a8080834c4b4094b081a3a5b838ac8741426e51f4a8339451cec3ae8829a2241af62c000080a1023a968c4c1a6127102fe60e2706476b23d8f6c3e147937a7252a5c35f61f0938e1ba001f685b0782021a25403b867fdac867da1e424cfb3ac19ebbd08a0fb134cbc42a0896aabcc00ca2b25bc762db03f7cead23e8b5f590a8e87690f0b6ec1552554ef"
 	
+	signer := NewEIP155Signer(big.NewInt(1))
+	//signer := FrontierSigner{}
+	//signer := HomesteadSigner{}
+	t.Log(signer)
 	err := rlp.DecodeBytes(common.Hex2Bytes(hexTx), &tx)
 		if err != nil {
 			t.Log(err)
 		}
+
 	t.Log(tx.data.Pubkey)
 	from, err := Sender(signer, tx)
-	if err != nil {
+	if err != nil { 
 		t.Log(err)
 	}
 	t.Log(from)
 	t.Log(from.Hex())
 
-	t.Log("--------------以下実験----------------")
+	
+	t.Log(signer.Hash(tx).Hex())
+
+
 	r, s := tx.data.R.Bytes(), tx.data.S.Bytes()
+
 	sig := [64]byte{}
 	copy(sig[:32], r)
 	copy(sig[32:], s)
-	t.Log("Sig :")
+
 	t.Log(hex.EncodeToString(sig[:]))
-	t.Log((signer.Hash(tx).Hex()))
+	
+
+	
+
+	
+	
+	
+
+	
+
 }
