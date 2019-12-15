@@ -19,7 +19,7 @@ package types
 import (
 	"math/big"
 	"testing"
-	//"encoding/hex"
+	"encoding/hex"
 	"reflect"
 	"github.com/Noaraud/noa-geth/common"
 	"github.com/Noaraud/noa-geth/crypto"
@@ -146,11 +146,11 @@ func TestEIP155Sender(t *testing.T) {
 	//hexTx := "f88a8080834c4b4094b081a3a5b838ac8741426e51f4a8339451cec3ae8829a2241af62c000080a1023a968c4c1a6127102fe60e2706476b23d8f6c3e147937a7252a5c35f61f0938e1ba001f685b0782021a25403b867fdac867da1e424cfb3ac19ebbd08a0fb134cbc42a0896aabcc00ca2b25bc762db03f7cead23e8b5f590a8e87690f0b6ec1552554ef"
 	
 	//normalTx
-	hexTx := "f8698080834c4b4094e99259149c60f7f5fdb5e2b236303dfce23867a08829a2241af62c0000808026a0a0dd5b8c525ab2d66ca7e5723445f749062745a80c697544ecffe3059d381b8fa050921c7cf229e10f7956de0466b64fb300aa84f2fece0ab9fc7a3cc0ba284cc9"
+	hexTx := "f88680808307a12094b081a3a5b838ac8741426e51f4a8339451cec3ae8411e1a30080a1023a968c4c1a6127102fe60e2706476b23d8f6c3e147937a7252a5c35f61f0938e1ba010782643f13386339b99d5808e8dcc4d61df7896fdb4151ea8032ee2b3ae6e5ca03d79d62fdba17d73903be13f95d4c0530083f7e00d5920f4e9a2b2b37fef2272"
 
 	signer := NewEIP155Signer(big.NewInt(1))
-	//signer := FrontierSigner{}
-	//signer := HomesteadSigner{}
+	signer2 := FrontierSigner{}
+	signer3 := HomesteadSigner{}
 	
 	err := rlp.DecodeBytes(common.Hex2Bytes(hexTx), &tx)
 		if err != nil {
@@ -169,15 +169,17 @@ func TestEIP155Sender(t *testing.T) {
 
 	
 	t.Log(signer.Hash(tx).Hex())
+	t.Log(signer2.Hash(tx).Hex())
+	t.Log(signer3.Hash(tx).Hex())
 
 
-	//r, s := tx.data.R.Bytes(), tx.data.S.Bytes()
+	r, s := tx.data.R.Bytes(), tx.data.S.Bytes()
 
-	//sig := [64]byte{}
-	//copy(sig[:32], r)
-	//copy(sig[32:], s)
+	sig := [64]byte{}
+	copy(sig[:32], r)
+	copy(sig[32:], s)
 
-	//t.Log(hex.EncodeToString(sig[:]))
+	t.Log(hex.EncodeToString(sig[:]))
 	
 
 	

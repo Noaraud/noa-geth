@@ -83,10 +83,10 @@ func TestHoge(t *testing.T) {
 	pk, _ := hex.DecodeString("023a968c4c1a6127102fe60e2706476b23d8f6c3e147937a7252a5c35f61f0938e")
 	
 	//msg, _ := hex.DecodeString("4886c43cb65240e968051b4b525ee06ccbea41a7c7304fcef9326da36e78564f")
-	msg, _ := hex.DecodeString("db7e80e96b8bf43e438ad3c0845658909ca84fe60c06bb3704c70e8cf6a1706c")
+	msg, _ := hex.DecodeString("c72a3e01f354e4fa35be0bda4eb2c0d355a1b20ce4ec9f2103357ec61ca77752")
 	copy(message[:], msg)
 	//sig, _ := hex.DecodeString("aacaace16017dfc44427266dec0bb71d73118d7f31e24ab70b6a88a3d6c635383bebe3ecaa0dec230133331e66d421ffe06c239276d0490888da9496e02284f0")
-	sig, _ := hex.DecodeString("01f685b0782021a25403b867fdac867da1e424cfb3ac19ebbd08a0fb134cbc42896aabcc00ca2b25bc762db03f7cead23e8b5f590a8e87690f0b6ec1552554ef")
+	sig, _ := hex.DecodeString("74550037a662c09f3c13223922252f968f579220c34d5763c5456a53b6cfc4f6932a057e021857373dd46dcd2ab0ddca1ee530de69f9184f7e61be86caf35ce5")
 	copy(signature[:], sig)
 	  
 	result, err := Verify(pk, message, signature)
