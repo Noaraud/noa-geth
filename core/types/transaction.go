@@ -178,6 +178,8 @@ func (tx *Transaction) Data() []byte       { return common.CopyBytes(tx.data.Pay
 func (tx *Transaction) Gas() uint64        { return tx.data.GasLimit }
 func (tx *Transaction) GasPrice() *big.Int { return new(big.Int).Set(tx.data.Price) }
 func (tx *Transaction) Value() *big.Int    { return new(big.Int).Set(tx.data.Amount) }
+//追加箇所
+func (tx *Transaction) Pubkey() []byte    { return common.CopyBytes(tx.data.Pubkey) }
 func (tx *Transaction) Nonce() uint64      { return tx.data.AccountNonce }
 func (tx *Transaction) CheckNonce() bool   { return true }
 
