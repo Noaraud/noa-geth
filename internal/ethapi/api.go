@@ -1105,6 +1105,7 @@ type RPCTransaction struct {
 	To               *common.Address `json:"to"`
 	TransactionIndex *hexutil.Uint64 `json:"transactionIndex"`
 	Value            *hexutil.Big    `json:"value"`
+	Pubkey			 hexutil.Bytes  `json:"CompressedPubkey"`
 	V                *hexutil.Big    `json:"v"`
 	R                *hexutil.Big    `json:"r"`
 	S                *hexutil.Big    `json:"s"`
