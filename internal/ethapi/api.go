@@ -1130,7 +1130,7 @@ func newRPCTransaction(tx *types.Transaction, blockHash common.Hash, blockNumber
 		To:       tx.To(),
 		Value:    (*hexutil.Big)(tx.Value()),
 		//追加箇所
-		//Pubkey:   (*hexutil.Big)(tx.Pubkey()),
+		Pubkey:   hexutil.Bytes(tx.Pubkey()),
 		V:        (*hexutil.Big)(v),
 		R:        (*hexutil.Big)(r),
 		S:        (*hexutil.Big)(s),
