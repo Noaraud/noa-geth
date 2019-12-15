@@ -1121,8 +1121,8 @@ func newRPCTransaction(tx *types.Transaction, blockHash common.Hash, blockNumber
 	v, r, s := tx.RawSignatureValues()
 
 	result := &RPCTransaction{
-		//From:     from,
-		//Gas:      hexutil.Uint64(tx.Gas()),
+		From:     from,
+		Gas:      hexutil.Uint64(tx.Gas()),
 		GasPrice: (*hexutil.Big)(tx.GasPrice()),
 		Hash:     tx.Hash(),
 		Input:    hexutil.Bytes(tx.Data()),
@@ -1130,7 +1130,7 @@ func newRPCTransaction(tx *types.Transaction, blockHash common.Hash, blockNumber
 		To:       tx.To(),
 		Value:    (*hexutil.Big)(tx.Value()),
 		//追加箇所
-		Pubkey:   (*hexutil.Big)(tx.Pubkey()),
+		//Pubkey:   (*hexutil.Big)(tx.Pubkey()),
 		V:        (*hexutil.Big)(v),
 		R:        (*hexutil.Big)(r),
 		S:        (*hexutil.Big)(s),
