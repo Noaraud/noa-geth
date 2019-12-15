@@ -50,7 +50,7 @@ type txdata struct {
 	Recipient    *common.Address `json:"to"       rlp:"nil"` // nil means contract creation
 	Amount       *big.Int        `json:"value"    gencodec:"required"`
 	Payload      []byte          `json:"input"    gencodec:"required"`
-	Pubkey		 []byte			 `json:"pubkey"	  gencodec:"required"`
+	Pubkey		 []byte			 `json:"CompressedPubkey"	  gencodec:"required"`
 
 	// Signature values
 	V *big.Int `json:"v" gencodec:"required"`
@@ -179,7 +179,7 @@ func (tx *Transaction) Gas() uint64        { return tx.data.GasLimit }
 func (tx *Transaction) GasPrice() *big.Int { return new(big.Int).Set(tx.data.Price) }
 func (tx *Transaction) Value() *big.Int    { return new(big.Int).Set(tx.data.Amount) }
 //追加箇所
-//func (tx *Transaction) Pubkey() []byte    { return common.CopyBytes(tx.data.Payload) }
+func (tx *Transaction) Pubkey() []byte    { return common.CopyBytes(tx.data.Pubkey) }
 func (tx *Transaction) Nonce() uint64      { return tx.data.AccountNonce }
 func (tx *Transaction) CheckNonce() bool   { return true }
 
